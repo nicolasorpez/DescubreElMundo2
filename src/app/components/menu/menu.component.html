@@ -1,0 +1,21 @@
+<nav>
+    <!-- Bootstrap y Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+    <ul>
+      <!-- Botón de menú hamburguesa -->
+      <li class="menu-toggle" (click)="toggleMenu()">
+        <a><i class="fas fa-bars"></i></a>
+      </li>
+      <!-- Menú desplegable -->
+      <ul class="menu-desplegable" [class.show]="menuOpen">
+        <li><a href="#"><i class="fas fa-utensils"></i> Comida</a></li>
+        <li><a href="#"><i class="fas fa-shopping-cart"></i> Centro Comercial</a></li>
+        <li><a href="#"><i class="fas fa-museum"></i> Centros Culturales</a></li>
+        <li><a href="#"><i class="fas fa-hotel"></i> Hoteles</a></li>
+        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Puntos de interés</a></li>
+      </ul>
+    </ul>
+  </nav>

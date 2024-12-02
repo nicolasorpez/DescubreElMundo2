@@ -26,6 +26,7 @@
     "@swimlane/ngx-graph": "^8.3.0",
     "@types/leaflet-routing-machine": "^3.2.8",
     "@types/sockjs-client": "^1.5.4",
+    "bootstrap": "^5.3.3",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
     "rxjs": "~7.5.0",

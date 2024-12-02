@@ -1,76 +1,101 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import { PuntosDeInteresService } from '../../services/puntos-de-interes.service';
 
 @Component({
   selector: 'app-mapa',
+  standalone: true,
   templateUrl: './mapa.component.html',
   styleUrls: ['./mapa.component.css']
 })
 export class MapaComponent implements OnInit {
-  private map: L.Map | undefined;
+  private map!: L.Map;
+  private puntosDeInteres!: any[];
+  private mostrarRuta: boolean = false;
 
-  constructor() {}
+  constructor(private puntosDeInteresService: PuntosDeInteresService) { }
 
   ngOnInit(): void {
     this.initMap();
-    this.addPointsOfInterest();
+    this.cargarPuntosDeInteres();
+    this.map.on('click', (e) => {
+      if (this.mostrarRuta) {
+        // Aquí puedes implementar la lógica para mostrar la ruta en el mapa
+      }
+    });
   }
 
   private initMap(): void {
     this.map = L.map('map', {
-      center: [18.3458, -99.5397] as L.LatLngTuple, // Coordenadas de Iguala
-      zoom: 14 // Zoom ajustado para la ciudad
+      center: [18.3496, -99.5396],
+      zoom: 14
     });
-
+  
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
-  }
-
-  private addPointsOfInterest(): void {
-    // Ícono personalizado para los puntos de interés
-    const interestIcon = L.icon({
-      iconUrl: 'https://cdn-icons-png.flaticon.com/512/7369/7369110.png', // Ruta al ícono que desees usar
-      iconSize: [32, 32], // Tamaño del ícono
-      iconAnchor: [16, 32], // Punto de anclaje del ícono
-      popupAnchor: [0, -32] // Posición del popup respecto al ícono
-    });
-
-    // Lista de puntos de interés en Iguala
-    const pointsOfInterest: { name: string; coords: L.LatLngTuple; description?: string }[] = [
-      {
-        name: 'Zócalo de Iguala',
-        coords: [18.3496, -99.5396],
-        description: 'El centro histórico de la ciudad con jardines y la Parroquia de San Francisco.'
-      },
-      {
-        name: 'Parroquia de San Francisco de Asís',
-        coords: [18.3495, -99.5398],
-        description: 'Una iglesia emblemática en el corazón de Iguala.'
-      },
-      {
-        name: 'Laguna de Tuxpan',
-        coords: [18.3665, -99.5295],
-        description: 'Un hermoso cuerpo de agua ideal para paseos y actividades recreativas.'
-      },
-      {
-        name: 'Museo de la Bandera',
-        coords: [18.3485, -99.5402],
-        description: 'Un museo dedicado a la historia de la Bandera de México.'
-      },
-      {
-        name: 'Cerro del Tehuehue',
-        coords: [18.3600, -99.5333],
-        description: 'Un mirador natural con vistas impresionantes de Iguala.'
+  
+    this.map.on('click', (e) => {
+      if (this.mostrarRuta) {
+        // Aquí puedes implementar la lógica para mostrar la ruta en el mapa
       }
-    ];
-
-    // Agregar los puntos al mapa con sus íconos y popups
-    pointsOfInterest.forEach(point => {
-      L.marker(point.coords, { icon: interestIcon })
-        .addTo(this.map!)
-        .bindPopup(`<b>${point.name}</b><br>${point.description || ''}`);
     });
   }
+
+
+  private cargarPuntosDeInteres(): void {
+    this.puntosDeInteres = this.puntosDeInteresService.getPuntosDeInteres();
+    this.mostrarPuntosDeInteresEnMapa();
+  }
+
+  private mostrarPuntosDeInteresEnMapa(): void {
+    const puntosDeInteresIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/7369/7369110.png',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16]
+    });
+
+    const usuarioIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16]
+    });
+    this.puntosDeInteres.forEach(punto => {
+      const marker = L.marker([punto.coords[0], punto.coords[1]], { icon: puntosDeInteresIcon });
+      marker.addTo(this.map);
+      marker.bindPopup(punto.name);
+    });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const marker = L.marker([lat, lng], { icon: usuarioIcon });
+        marker.addTo(this.map);
+        marker.bindPopup('Tu ubicación actual');
+        alert('Ubicación obtenida exitosamente');
+      }, error => {
+        console.error(error);
+        alert('No se pudo obtener la ubicación actual');
+      });
+  }
+
+}
+mostrarRutaEnMapa(lugar: any) {
+  this.mostrarRuta = true;
+  // Obtener la ubicación actual del usuario
+  navigator.geolocation.getCurrentPosition(position => {
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+    // Dibujar la ruta en el mapa desde la ubicación actual del usuario hasta el punto de interés seleccionado
+    const ruta = L.polyline([
+      [lat, lng],
+      [lugar.coords[0], lugar.coords[1]]
+    ]);
+    ruta.addTo(this.map);
+  }, error => {
+    console.error(error);
+  });
+}
+
 }

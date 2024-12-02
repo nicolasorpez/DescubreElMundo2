@@ -1,0 +1,68 @@
+nav {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    position: relative;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav li {
+    position: relative;
+  }
+
+  /* Botón de menú hamburguesa */
+  .menu-toggle {
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .menu-toggle i {
+    font-size: 24px;
+    color: white;
+  }
+
+  /* Menú desplegable */
+  .menu-desplegable {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: #444;
+    top: 100%; /* Debajo del botón */
+    left: 0; /* Alineado a la izquierda */
+    width: 100%; /* Ocupa todo el ancho (tipo móvil) */
+    padding: 0;
+    border-radius: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  .menu-desplegable.show {
+    display: block; /* Mostrar menú */
+  }
+
+  .menu-desplegable li {
+    margin: 0;
+    border-bottom: 1px solid #555; /* Línea separadora entre ítems */
+  }
+
+  .menu-desplegable li:last-child {
+    border-bottom: none; /* Sin borde en el último ítem */
+  }
+
+  .menu-desplegable a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Asegura que ocupe todo el ancho */
+  }
+
+  .menu-desplegable a:hover {
+    background-color: #555; /* Efecto hover */
+  }

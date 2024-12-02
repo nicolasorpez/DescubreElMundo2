@@ -1,0 +1,24 @@
+<head>
+    <!-- Integración de Bootstrap para estilos -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </head>
+  
+  <!-- Menú -->
+ <app-menu></app-menu>
+  <!-- Contenedor principal -->
+    <app-mapa></app-mapa>
+  <div class="container">
+    <h2 class="text-center mb-5">Puntos de Interés</h2>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let lugar of lugares">
+        <div class="card mb-4">
+          <img [src]="lugar.imageUrl" class="card-img-top" [alt]="lugar.name">
+          <div class="card-body">
+            <h5 class="card-title">{{ lugar.name }}</h5>
+            <p class="card-text">{{ lugar.description }}</p>
+            <button class="boton-mas-info">Más información</button>
+            <button class="boton-ubicacion" (click)="mostrarRuta(lugar)">Ubicación</button>        </div>
+      </div>
+    </div>
+  </div>
