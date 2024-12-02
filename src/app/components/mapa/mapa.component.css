@@ -1,0 +1,12 @@
+#routing-container {
+    background-color: white;
+    border-left: 2px solid #ccc; /* Líneas de borde para el panel */
+    padding: 10px;
+    box-shadow: -2px 0px 5px rgba(0,0,0,0.1);
+  }
+  
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+  
