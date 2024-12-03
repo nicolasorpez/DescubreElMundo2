@@ -144,7 +144,14 @@ private puntosDeInteres: { name: string; coords: [number, number]; description?:
       description: 'Una tienda que ofrece tiendas de ropa y restaurantes de alitas',
       tipo: 'Centro Comercial',
       imageUrl: 'https://lh5.googleusercontent.com/p/AF1QipPJ7FDC_g_gDs9PhNbcspz-lBm6m7uLudK1cS3J=w408-h725-k-no'
-    }
+    },
+    {
+      name: 'Casa Cuernavaca',
+      coords: [18.93879564901335, -99.24570377842785],
+      description:'Casa de Familia en cuernavaca',
+      tipo:'Casa',
+      imageUrl:'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=SI7-ZD0LjSxka3DaQdfFwA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=277.36768&pitch=0&thumbfov=100'}
+
     
   ];
   
